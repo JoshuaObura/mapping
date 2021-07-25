@@ -180,6 +180,7 @@ class App extends React.Component {
     })
   }
 
+
   render() {
     const MapWithAMarker = withScriptjs(withGoogleMap(props =>
       <GoogleMap
@@ -232,3 +233,4 @@ class App extends React.Component {
 }
 
 export default App;
+
