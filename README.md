@@ -1,3 +1,21 @@
+To Confirgure this app please have the most recent version of React
+
+
+# Please eneter npm install react-geocode react-google-autocomplete react-google-map --save
+
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+// THIS IS REACT GENERATED INFO
+/////////////////////////////////////////////////////////////////////////////
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
