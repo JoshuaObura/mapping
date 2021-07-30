@@ -38,10 +38,7 @@
   }
 }
 
-.Whole{
+#PageContainer{
   height:100%;
-  padding:12rem;
-  background-color: #9beae4;
-  align-items: center;
 }
 

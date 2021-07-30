@@ -15,25 +15,7 @@ import {
   geocodeByPlaceId,
   getLatLng,
 } from 'react-places-autocomplete';
-import { Form, Input, Button } from 'antd';
-/*
-class LocationSearchInput extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { address: '' };
-  }
-}
-handleChange = address => {
-  this.setState({ address });
-};
 
-handleChange = address => {
-  geocodeByAddress(address)
-  .then(results => getLatLng(results[0]))
-  .then(latLng => console.log('Success',latLng))
-  .catch(error => console.error('Error',error))
-};
-*/
 Geocode.setApiKey("AIzaSyAhxzVTBxBnRaIMbQaNX-sT0MzN0mORWdo")
 
 class App extends React.Component {
@@ -181,7 +163,15 @@ class App extends React.Component {
   }
 
 
+  handleSubmit(event) {
+    event.preventDefault()
+    var fName = event.target[0].value;
+    var lName = event.target[1].value;
+    var div = document.getElementById('InfoWindow');
+    div.innerHTML += ""+fName + " " + lName
+  }
   render() {
+
     const MapWithAMarker = withScriptjs(withGoogleMap(props =>
       <GoogleMap
         defaultZoom={10}
@@ -193,7 +183,7 @@ class App extends React.Component {
           position={{ lat: this.state.markerPosition.lat, lng: this.state.markerPosition.lng }}
         >
           <InfoWindow>
-          <div>{this.state.address}</div>
+          <div id="InfoWindow"></div>
           </InfoWindow>
           </Marker>
           
@@ -205,29 +195,34 @@ class App extends React.Component {
       </GoogleMap>
     ));
     return (
-    <div class="Whole">
-      <div style={{width:'80%',backgroundColor:'white',borderRadius:'5px',alignItems:'center',textAlign:'center'}}>
-      <div style={{alignItems:'center',backgroundColor:'white',position:'center',width:'100%'}}>
-        <form style={{paddingBottom:'2rem',alignItems:'center',paddingTop:'2rem'}}>
-        <input type="text" id="fname" placeholder="Name" style={{width:'25%',marginBottom:'0.5rem',marginRight:'1.5rem',height:'3rem',fontSize:'18px',borderRadius:'5px'}}></input>
-        <input type="text" id="lname" placeholder="Family Name" style={{width:'25%',marginBottom:'0.5rem',height:'3rem',fontSize:'18px',borderRadius:'5px'}}></input><br></br>
-        <AutoComplete
-          style={{width:'53%',marginTop:'1rem',height:'3rem',fontSize:'18px',borderRadius:'5px'}}
-          types={['(regions)']}
-          onPlaceSelected= {this.onPlaceSelected}
-          placeholder="Test Flat, Example Road,London,N42GQ"
-          /><br></br>
-        <input type="submit" value="Submit" style={{backgroundColor:'#00aeef',width:'6rem',height:'2.5rem',borderRadius:'5px',marginTop:'1.5rem',color:'white',fontSize:'20px',fontStyle:'oblique'}}></input>
-      </form>
+    <div style={{height:'1150px',width:'100%'}}>
+      <div id="TextBox" style={{alignItems:'center',textAlign:'center',backgroundColor:'#9beae4',height:'100%',paddingTop:'8%'}}>
+        <div id="formStart" style={{width:'45%',backgroundColor:'white',borderRadius:'8px',paddingTop:'2rem',paddingBottom:'2rem',marginLeft:'27%'}}>
+        <div style={{width:'80%',paddingLeft:'14%'}}>
+        <h2 style={{fontSize:'35px',borderBottom:'1px solid #e9e9ec',textAlign:"initial",paddingBottom:'1rem'}}>ONQOR Code Test</h2>
+        </div>
+        <div id="names" style={{width:'100%'}}>
+          <form  onSubmit = {this.handleSubmit} style={{paddingBottom:'1rem',paddingTop:'1rem'}}>
+          <input type="text" id="fname" placeholder="Name" style={{width:'35%',marginBottom:'0.5rem',marginRight:'1.5rem',height:'2.5rem',fontSize:'18px',borderRadius:'5px'}}></input>
+          <input type="text" id="lname" placeholder="Family Name" style={{width:'35%',marginBottom:'0.5rem',height:'2.5rem',fontSize:'18px',borderRadius:'5px'}}></input><br></br>
+          <AutoComplete
+            style={{width:'73%',marginTop:'1rem',height:'3rem',fontSize:'18px',borderRadius:'5px'}}
+            types={['(regions)']}
+            //placeholder="Test Flat, Example Road,London,N42GQ"
+            onPlaceSelected= {this.onPlaceSelected}
+            /><br></br>
+          <input type="submit" value="Submit" style={{backgroundColor:'#00aeef',width:'6rem',height:'2.5rem',borderRadius:'5px',marginTop:'1.5rem',color:'white',fontSize:'20px',fontStyle:'oblique'}}></input>
+        </form>
+        </div>
+          <MapWithAMarker
+          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhxzVTBxBnRaIMbQaNX-sT0MzN0mORWdo&v=3.exp&libraries=geometry,drawing,places"
+          loadingElement={<div style={{ height: `100%` }} />}
+          containerElement={<div style={{ height: `300px`,borderRadius:`5px`,width:`73%`,marginLeft:`14%`}} />}
+          mapElement={<div style={{ height: `100%` }} />}
+        /> 
+        </div> 
       </div>
-        <MapWithAMarker
-    googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhxzVTBxBnRaIMbQaNX-sT0MzN0mORWdo&v=3.exp&libraries=geometry,drawing,places"
-    loadingElement={<div style={{ height: `100%` }} />}
-    containerElement={<div style={{ height: `400px`,borderRadius:`5px`,padding:'2rem'}} />}
-    mapElement={<div style={{ height: `100%` }} />}
-  /> 
-  </div> 
-</div>
+    </div>
     );
   }
 }
